@@ -8,17 +8,38 @@ class App extends React.Component {
   }
   
   handleTitleClick (video) {
-    // console.log(this.state)
+    // console.log(thisstate)
     this.setState({video: video});
   }
   
+  handleSearchClick (input) {
+    var context = this;
+    $.ajax({
+      data: {
+        key: 'AIzaSyD34WatGCnMXnIf0g5LNHxwTFhXOUSuLRs',
+        q: input,
+        part: 'snippet'
+      },
+      url: 'https://www.googleapis.com/youtube/v3/search',
+      maxResults: '5',
+      type: 'GET',
+      dataType: 'json',
+      success: function(data) {   
+        console.log('successful get request');
+        console.log(data.items);
+      },
+      error: function(data) {
+        console.log('There was an error');
+      }
+    });
+  }
   render () {
   
     return (  
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <Search handleSearchClick={this.handleSearchClick.bind(this)}/>
           </div>
         </nav>
         <div className="row">
