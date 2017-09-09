@@ -12,6 +12,10 @@ class App extends React.Component {
     this.setState({video: video});
   }
   
+  handleSearchResults(data) {
+    this.setState({videos: data});
+  }
+  
   handleSearchClick (input) {
     var context = this;
     $.ajax({
@@ -26,7 +30,7 @@ class App extends React.Component {
       dataType: 'json',
       success: function(data) {   
         console.log('successful get request');
-        console.log(data.items);
+        context.handleSearchResults(data.items);
       },
       error: function(data) {
         console.log('There was an error');
